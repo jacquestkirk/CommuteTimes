@@ -1,0 +1,6 @@
+*.gsheet
+.idea/
+__pycache__/
+Config.py
+Untitled document.gdoc
+output.csv
