@@ -9,5 +9,5 @@ def some_job():
     writeResults(outputCsv, response_json_return, workLocations, apartmentLocations)
 
 scheduler = BlockingScheduler()
-scheduler.add_job(some_job, 'interval', hours=0.5)
+scheduler.add_job(some_job, 'interval', hours=1)
 scheduler.start()
