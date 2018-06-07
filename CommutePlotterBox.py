@@ -40,7 +40,8 @@ workLocations = readFile(workCsv)
 
 #read in the data
 df = pd.read_csv(outputCsv)
-df["Hour"] = pd.DatetimeIndex(df['Date time']).hour     #add in an hour column with the hour of the measurement
+df.columns = [col.replace(' ','_') for col in df.columns]
+df["Hour"] = pd.DatetimeIndex(df['Date_time']).hour     #add in an hour column with the hour of the measurement
 
 
 
@@ -101,10 +102,13 @@ for apartmentIndex in range(len(apartmentLocations)):
         #commute to wirk
         df_filtered = df_filtered_origin.query("Destination == " + '"' + chosenWork + '"')
 
+        df_filtered_work_destination_weekday = df_filtered.query("Day_of_Week <= 5")
+
+        #weekday to work
         trace = dict(
             type='box',
-            x=df_filtered["Hour"],
-            y=df_filtered["Time (min)"],
+            x=df_filtered_work_destination_weekday["Hour"],
+            y=df_filtered_work_destination_weekday["Time_(min)"],
             xaxis='x1',
             yaxis='y1',
             mode='markers',
@@ -120,12 +124,34 @@ for apartmentIndex in range(len(apartmentLocations)):
 
         data.append(trace)
 
-        #commute home
-        df_filtered_work_origin = df_filtered_apart_destination.query("Origin == " + '"' + chosenWork + '"')
+        # weekend to work
+        df_filtered_work_destination_weekend = df_filtered.query("Day_of_Week > 5")
         trace = dict(
             type='box',
-            x=df_filtered_work_origin["Hour"],
-            y=df_filtered_work_origin["Time (min)"],
+            x=df_filtered_work_destination_weekend["Hour"],
+            y=df_filtered_work_destination_weekend["Time_(min)"],
+            xaxis='x1',
+            yaxis='y1',
+            mode='markers',
+            name=chosenWork + "to work weekend",
+            fillcolor=colors[workIndex],
+            boxmean='sd'
+
+            # xaxis='xaxis' + str(apartmentIndex + 1),
+            # yaxis='yaxis' + str(apartmentIndex + 1),
+            # transforms=transformList
+        )
+
+        data.append(trace)
+
+
+        #commute home
+        df_filtered_work_origin = df_filtered_apart_destination.query("Origin == " + '"' + chosenWork + '"')
+        df_filtered_work_origin_weekday = df_filtered_work_origin.query("Day_of_Week <= 5")
+        trace = dict(
+            type='box',
+            x=df_filtered_work_origin_weekday["Hour"],
+            y=df_filtered_work_origin_weekday["Time_(min)"],
             xaxis='x2',
             yaxis='y2',
             mode='markers',
@@ -155,7 +181,22 @@ for apartmentIndex in range(len(apartmentLocations)):
 
         data.append(trace)
 
-    plotsPerCombo = 4
+        # commute home weekend
+        df_filtered_work_origin_weekend = df_filtered_work_origin.query("Day_of_Week > 5")
+        trace = dict(
+            type='box',
+            x=df_filtered_work_origin_weekend["Hour"],
+            y=df_filtered_work_origin_weekend["Time_(min)"],
+            xaxis='x2',
+            yaxis='y2',
+            mode='markers',
+            name=chosenWork + "to home weekend",
+            fillcolor=colors[workIndex],
+            boxmean='sd',
+        )
+        data.append(trace)
+
+    plotsPerCombo = 8
     visibleList = [False]*plotsPerCombo*len(apartmentLocations)
     visibleList[plotsPerCombo*apartmentIndex:plotsPerCombo*(apartmentIndex+1)] = [True]*plotsPerCombo
 
@@ -174,6 +215,7 @@ updatemenus = list([
 
 layout = {
     "title": "CommuteTimes",
+    "subplot_titles": ('First Subplot','Second Subplot'),
     "updatemenus": updatemenus,
     "xaxis1": {
                 'domain': [0.0, 0.45],
