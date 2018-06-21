@@ -9,7 +9,7 @@ def some_job():
     writeResults(outputCsv, response_json, apartmentLocations, workLocations)
     writeResults(outputCsv, response_json_return, workLocations, apartmentLocations)
 
-    generatePlots(False)
+    generatePlots(autoOpen=False, pushToPlotly=True)
 
 
 scheduler = BlockingScheduler()

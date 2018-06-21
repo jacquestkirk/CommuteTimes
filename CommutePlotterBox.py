@@ -30,7 +30,7 @@ def readFile(fileName):
     return fileList
 
 
-def generatePlots(autoOpen = True):
+def generatePlots(autoOpen = True, pushToPlotly = False):
     #read list of apartments
     apartmentLocations = readFile(apartmentsCsv)
     workLocations = readFile(workCsv)
@@ -272,7 +272,11 @@ def generatePlots(autoOpen = True):
         "layout": layout
     }
 
-    py.offline.plot(fig, filename='index.html', validate=False, auto_open=autoOpen)
+
+    if(pushToPlotly):
+        py.plotly.plot(fig, filename='commuteTimes', validate=False, auto_open=autoOpen)
+    else:
+        py.offline.plot(fig, filename='index.html', validate=False, auto_open=autoOpen)
 
 
 
