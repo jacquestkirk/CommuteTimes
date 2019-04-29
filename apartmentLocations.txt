@@ -1,8 +1,12 @@
-717 Indiana Ct # 2, El Segundo, CA 90245
+717 Indiana Ct, El Segundo, CA 90245
 222 S. Main St. Los Angeles, CA 90012
 12535 Brookshire Ave, Downey, CA 90242
 24208 Crenshaw Blvd, Torrance, CA 90505
 2545 Pacific Coast Hwy, Torrance, CA 90505
 20909 Anza Ave, Torrance, CA 90503
 2200 Crenshaw Blvd, Torrance, CA 90501
-3720 Emerald St # Z1, Torrance, CA 90503
+3720 Emerald St, Torrance, CA 90503
+1120 W 6th St, Los Angeles, CA 90017
+810 S Flower St, Los Angeles, CA 90017
+300 S Santa Fe Ave, Los Angeles, CA 90013
+1313 Sunset Boulevard, Los Angeles, CA 90026

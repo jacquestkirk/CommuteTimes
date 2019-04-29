@@ -3,7 +3,17 @@
 1. This code is tested with python 2.7
 2. Create a virtual environment called venv in this folder
 ```
+# windows
 virtualenv --python=C:\Python27 venv
+# linux
+virtualenv --python=/usr/bin/python2.7 venv
+```
+3. Activate virtual environment
+```
+# windows
+venv/Scripts/Activate
+# linux
+. venv/bin/activate
 ```
 3. Install requirements.txt
 ```
