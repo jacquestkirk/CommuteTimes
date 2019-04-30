@@ -9,7 +9,7 @@ outputCsv = "output.csv"
 workCsv = "workLocations.txt"
 
 #colors for Wells Fargo and SpaceX respectively
-colors = ['red','blue']
+colors = ['red','blue','green']
 
 def readFile(fileName):
 
@@ -99,7 +99,7 @@ def generatePlots(autoOpen = True, pushToPlotly = False):
         for workIndex in range(len(workLocations)):
             chosenWork = workLocations[workIndex]
 
-            #commute to wirk
+            #commute to work
             df_filtered = df_filtered_origin.query("Destination == " + '"' + chosenWork + '"')
 
             df_filtered_work_destination_weekday = df_filtered.query("Day_of_Week <= 5")
@@ -196,7 +196,7 @@ def generatePlots(autoOpen = True, pushToPlotly = False):
             )
             data.append(trace)
 
-        plotsPerCombo = 8
+        plotsPerCombo = 4*len(workLocations)
         visibleList = [False]*plotsPerCombo*len(apartmentLocations)
         visibleList[plotsPerCombo*apartmentIndex:plotsPerCombo*(apartmentIndex+1)] = [True]*plotsPerCombo
 
